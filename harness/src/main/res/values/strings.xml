@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="harness_service_description">Authorized pentest automation rig. Validates fraud-detection coverage on the client\'s own build. Do not enable on a production device.</string>
+</resources>

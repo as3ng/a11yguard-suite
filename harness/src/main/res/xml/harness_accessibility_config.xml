@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Deliberately NOT declaring android:isAccessibilityTool="true".
+  An abusive app would not (and on Play could not) legitimately claim tool status,
+  so we mirror that posture to exercise detection and the API 34+
+  accessibilityDataSensitive block, which only permits declared tools.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagReportViewIds|flagRequestFilterKeyEvents"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/harness_service_description"
+    android:notificationTimeout="50" />

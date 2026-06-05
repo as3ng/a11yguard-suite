@@ -1,0 +1,11 @@
+# Keep the public SDK surface for integrators that run R8/ProGuard.
+-keep public class com.fraudintel.a11yguard.A11yGuard { public *; }
+-keep public class com.fraudintel.a11yguard.A11yGuardConfig { public *; }
+-keep public class com.fraudintel.a11yguard.A11yGuardConfig$Builder { public *; }
+-keep public class com.fraudintel.a11yguard.RiskVerdict { public *; }
+-keep public class com.fraudintel.a11yguard.SignalContribution { public *; }
+-keep public enum com.fraudintel.a11yguard.RiskDecision { *; }
+-keep public enum com.fraudintel.a11yguard.SensitiveAction { *; }
+-keep public enum com.fraudintel.a11yguard.SignalId { *; }
+-keep public enum com.fraudintel.a11yguard.IntegrityVerdict { *; }
+-keep public interface com.fraudintel.a11yguard.IntegrityProvider { *; }

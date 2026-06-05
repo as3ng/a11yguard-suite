@@ -1,0 +1,32 @@
+# Build output
+.gradle/
+build/
+captures/
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+
+# Local configuration (machine-specific; never publish)
+local.properties
+keystore.properties
+secrets.properties
+*.jks
+*.keystore
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Internal-only material (not for publication)
+reference_malware/
+CLAUDE.md
+DRAFTREADME.md
