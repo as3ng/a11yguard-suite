@@ -5,11 +5,6 @@ import android.view.View
 import android.view.Window
 import androidx.annotation.RequiresApi
 
-/**
- * Version-gated *prevention*. Where the platform lets us, we stop the abuse outright instead of
- * merely scoring it. Each primitive degrades gracefully on older OS versions, where the behavioral
- * engine remains the safety net.
- */
 internal object StructuralHardening {
 
     fun hardenView(view: View, config: A11yGuardConfig) {

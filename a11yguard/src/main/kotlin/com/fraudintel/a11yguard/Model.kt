@@ -1,14 +1,5 @@
 package com.fraudintel.a11yguard
 
-/**
- * Public data model for the detection engine.
- *
- * Design note: nothing here is a single "is accessibility on?" boolean. The engine is a
- * weighted, explainable risk model whose *decisive* inputs are evidence of active automation
- * of a specific sensitive action - not the mere presence of an accessibility service. That is
- * what lets an Assistive-Touch / TalkBack user pass while an Automatic-Transfer-System trojan
- * is blocked, with effectively zero false positives.
- */
 
 /** Final decision returned to the integrating app at a sensitive decision point. */
 enum class RiskDecision {

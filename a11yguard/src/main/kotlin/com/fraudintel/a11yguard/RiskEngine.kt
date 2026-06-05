@@ -5,16 +5,6 @@ import android.os.SystemClock
 import android.view.accessibility.AccessibilityNodeInfo
 import kotlin.math.min
 
-/**
- * Weighted, explainable risk model evaluated at a sensitive decision point.
- *
- * Key FP-safety mechanism - "legitimacy damping": spoofable behavioral/per-touch signals are
- * heavily discounted unless a *capable, non-tool, untrusted* accessibility service is actually
- * enabled. This is what lets a whitelisted Assistive-Touch or TalkBack user pass: their injected
- * gestures and consumed touches still look "automated" per-event, but with no untrusted capable
- * service present those signals are damped below threshold. The non-damped backstops
- * (machine-paced flow, overlay, integrity) still catch abuse of an allow-listed service.
- */
 internal object RiskEngine {
 
     fun evaluate(
@@ -45,12 +35,6 @@ internal object RiskEngine {
 
         val contributions = ArrayList<SignalContribution>(SignalId.entries.size)
 
-        // 1) Automated node action (damped). SET_TEXT/PASTE are intrinsically suspicious - legitimate
-        //    text entry goes through the IME (InputConnection), never an accessibility node action -
-        //    so they count even if a genuine touch happens to precede them, closing the "inject right
-        //    after a real touch to look correlated" evasion. CLICK/FOCUS keep the correlation exemption
-        //    (a TalkBack double-tap is a real touch that drives a real CLICK). Legit tools that do use SET_TEXT
-        //    (e.g. Voice Access) are covered by the legitimacy damp, not by correlation.
         run {
             fun isHard(a: Int) = a == AccessibilityNodeInfo.ACTION_SET_TEXT || a == AccessibilityNodeInfo.ACTION_PASTE
             val hard = nodeActions.count { isHard(it.action) }

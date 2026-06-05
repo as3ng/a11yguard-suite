@@ -8,17 +8,6 @@ import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
-/**
- * Periodically re-evaluates risk in the background, so sustained automation is caught even when it
- * never routes through an app-driven [A11yGuard.evaluate] at a decision point - e.g. silent scraping
- * or in-app exploration that happens before (or without) any Confirm press. Verdicts are delivered
- * on the main thread.
- *
- * **Scope (important):** this is an *in-app* SDK. It can only observe automation targeting THIS app's
- * own windows. Cross-app reconnaissance (driving Gmail / Messages / Gallery / a browser) is invisible
- * here by construction - that belongs to platform controls (Play Integrity / Play Protect, Advanced
- * Protection Mode) or an on-device security/MDM agent, not to a library embedded in one app.
- */
 internal class ContinuousWatch(
     private val appContext: Context,
     private val config: A11yGuardConfig,

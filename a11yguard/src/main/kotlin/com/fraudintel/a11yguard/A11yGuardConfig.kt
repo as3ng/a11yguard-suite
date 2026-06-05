@@ -1,12 +1,5 @@
 package com.fraudintel.a11yguard
 
-/**
- * Immutable configuration. Build once and pass to [A11yGuard.init].
- *
- * All weights/thresholds have sane, FP-averse defaults derived from the design rationale
- * (see CLAUDE.md). They are exposed so the client can tune against their own population and
- * the authorized [com.fraudintel.harness] rig without recompiling the SDK.
- */
 class A11yGuardConfig private constructor(
     /** Packages the client explicitly trusts (e.g. the whitelisted Assistive-Touch vendor and
      *  the device-intelligence SDK). Presence of these never raises [SignalId.CAPABLE_UNKNOWN_SERVICE_PRESENT]. */

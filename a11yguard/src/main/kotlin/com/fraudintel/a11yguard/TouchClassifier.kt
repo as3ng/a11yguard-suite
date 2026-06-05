@@ -7,18 +7,6 @@ import android.view.InputDevice
 import android.view.MotionEvent
 import kotlin.math.abs
 
-/**
- * Classifies a single [MotionEvent] as genuine-human / suspected-injected / inconclusive.
- *
- * Bias is intentionally toward GENUINE_HUMAN: a touch carrying a registered physical-touchscreen
- * deviceId is trusted outright. We only escalate to SUSPECT_INJECTED when the deviceId is synthetic
- * AND at least one corroborating tell is present. This protects the "absence of human input" core
- * signal from being poisoned by false injection calls - the cost of a wrong "injected" call is a
- * false positive, which the engagement forbids.
- *
- * None of these per-touch tells are individually trustworthy (all are spoofable). They feed the
- * weighted engine as corroboration; the decisive signals remain node-action + flow-pacing.
- */
 internal object TouchClassifier {
 
     /**

@@ -4,13 +4,6 @@ import java.util.concurrent.ConcurrentLinkedDeque
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 
-/**
- * Process-wide, thread-safe evidence store written by the collectors and read by [RiskEngine].
- *
- * Process scope is deliberate: a11y automation frequently spans windows/activities, and the
- * engine reasons over short *time windows* rather than per-screen state. Everything is bounded
- * and self-expiring so memory stays flat and stale evidence never leaks into a later decision.
- */
 internal object RuntimeState {
 
     /** Last input we positively attributed to a real human, in our own window. */

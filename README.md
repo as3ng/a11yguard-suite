@@ -9,12 +9,12 @@ Malware targeting financial apps abuses the `AccessibilityService` API and overl
 screen content, inject input, conceal the screen, and complete transactions without the user.
 Detecting this by enumerating enabled accessibility services and blocking on their presence has two
 problems: it produces false positives for legitimate assistive technology (screen readers, switch
-access, assistive-touch utilities), and it does not stop the abuse.
+access, assistive-touch utilities), and it does not stop the abuse. Something like that?
 
-a11yguard scores whether a specific protected action is being driven by automation and returns an
-allow / step-up / block decision. The presence of an accessibility service is a low-weight input;
+`a11yguard` scores whether a specific protected action is being driven by automation and returns an
+allow / step-up / block decision. The presence of an accessibility service is a low-weight input,
 evidence of active automation of the protected action is the deciding factor. Spoofable per-event
-signals are discounted unless a capable, non-tool, untrusted service is actually present, which keeps
+signals are discounted **UNLESSS** a capable, non-tool, untrusted service is actually present, which keeps
 false positives for legitimate assistive technology close to zero.
 
 ## Modules
@@ -43,6 +43,7 @@ A11yGuard.enableAutoProtection(this)
 A11yGuard.setIntegrityProvider { playIntegrityVerdict() } // optional, server-verified
 
 // On a sensitive screen, after the view hierarchy is created
+// Yes dev needs to mark this later as A11yGuard will be a PnP plugin for any dev to use/improve (ik the code may succs)
 A11yGuard.markSensitive(usernameField, passwordField, confirmButton)
 
 // At the decision point
@@ -68,19 +69,19 @@ thresholds are configurable through `A11yGuardConfig.Builder`.
 - `evaluate` fails open: if the library is not initialized it returns `ALLOW`, so a transaction is
   never blocked by a library error.
 
-## Continuous evaluation
+## Continuous evaluation (just like thread-ish)
 
 `A11yGuard.startContinuousWatch` periodically re-evaluates risk on a background scheduler and delivers
 verdicts to a listener on the main thread, covering automation that does not pass through an
 instrumented decision point.
 
-## Scope
+## Scope ?
 
-a11yguard observes automation targeting the host app's own windows. Reconnaissance across other apps
+`a11yguard` observes automation targeting the host app's own windows. Reconnaissance across other apps
 is outside the scope of an in-process library; that is the responsibility of platform controls (Play
-Integrity, Restricted Settings, Advanced Protection Mode) or an on-device security agent.
+Integrity, Restricted Settings, AAPM or Android Advanced Protection Mode) or an on-device security agent.
 
-## Building
+## P, How to build?
 
 ```bash
 ./gradlew :a11yguard:assembleRelease
@@ -94,6 +95,6 @@ and a targeted console that can launch a named package, enumerate and act on res
 replayable scenarios. It performs no network activity, exfiltration, or persistence and is intended
 for test devices only.
 
-## License
+## More notes
 
-To be determined.
+PRs r welcome!

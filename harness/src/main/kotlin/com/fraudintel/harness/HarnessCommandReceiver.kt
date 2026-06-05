@@ -6,11 +6,6 @@ import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 
-/**
- * Broadcast entry point for triggering scenarios from adb. Action com.fraudintel.harness.RUN with a
- * string extra "scenario" ("fill" or "gesture"), a long extra "gapMs", and optional string extras
- * "user", "pass", and "confirm".
- */
 class HarnessCommandReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val svc = HarnessAccessibilityService.instance

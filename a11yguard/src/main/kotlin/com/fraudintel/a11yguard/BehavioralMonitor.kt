@@ -6,20 +6,6 @@ import android.os.SystemClock
 import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
 
-/**
- * The false-positive-safe core. By chaining a [View.AccessibilityDelegate] onto guarded controls,
- * we observe accessibility node actions (SET_TEXT / CLICK / PASTE / ...) *exactly* when an
- * accessibility service drives them - and never for:
- *   - soft-keyboard typing (arrives via InputConnection, not performAccessibilityAction), or
- *   - the app's own setText()/performClick() (never routed as an accessibility action).
- *
- * This sidesteps the classic "field changed without a touch" trap, which misfires on every legit
- * password entry because IME input lands in the keyboard's window, not the app's.
- *
- * We only *observe* here and let the risk engine decide, so a single human-paced action from a
- * legitimate tool (TalkBack double-tap, Switch Access) does not block anything. The engine
- * separates that from a machine-paced Automatic-Transfer-System burst.
- */
 internal object BehavioralMonitor {
 
     fun markSensitive(view: View, config: A11yGuardConfig) {

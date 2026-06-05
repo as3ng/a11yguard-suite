@@ -8,19 +8,12 @@ import android.os.SystemClock
 import android.view.accessibility.AccessibilityManager
 import android.accessibilityservice.AccessibilityServiceInfo
 
-/** Outcome of classifying the currently-enabled accessibility services. Presence-only = weak. */
 internal data class ServiceAssessment(
     /** A capable, non-tool service from an untrusted source that is NOT allow-listed is enabled. */
     val capableUnknownPresent: Boolean,
     val capableUnknownPackages: List<String>
 )
 
-/**
- * Classifies enabled accessibility services. This is the *weak*, contextual axis - it must never
- * block on its own (that is exactly what produced the client's false positives). Allow-listed
- * vendors (the Assistive-Touch app, the device-intelligence SDK), known-good tools, and system
- * services are explicitly benign even when "capable".
- */
 internal object ServiceClassifier {
 
     private val TRUSTED_INSTALLERS = setOf("com.android.vending", "com.google.android.feedback")

@@ -2,7 +2,6 @@ package com.fraudintel.a11yguard
 
 import android.util.Log
 
-/** Minimal logging shim. Never logs PII; off unless [A11yGuardConfig.debugLogging]. */
 internal object GuardLog {
     private const val TAG = "A11yGuard"
     @Volatile var enabled: Boolean = false

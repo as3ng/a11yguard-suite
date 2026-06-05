@@ -23,6 +23,7 @@ import com.fraudintel.a11yguard.RiskVerdict
 import com.fraudintel.a11yguard.SensitiveAction
 
 /**
+ * Masih beta test :)
  * AUTHORIZED operator console for targeted testing against the client's REAL app.
  *
  * The operator types a package, enables the service, optionally toggles runtime a11y flags, names a

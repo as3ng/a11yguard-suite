@@ -21,11 +21,6 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
-/**
- * Test instrumentation that drives accessibility automation against the foreground app under test,
- * used to validate detection. It acts only on demand, performs no networking, persistence, or data
- * collection, and is intentionally not declared as an accessibility tool.
- */
 class HarnessAccessibilityService : AccessibilityService() {
 
     private val main = Handler(Looper.getMainLooper())

@@ -6,34 +6,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 
-/**
- * Public entry point for the accessibility-abuse / on-device-fraud detection SDK.
- *
- * Plug-and-play integration (typical):
- * ```
- * // 1) Application.onCreate()
- * val cfg = A11yGuardConfig.Builder()
- *     .allowlistServicePackages("com.vendor.assistivetouch", "com.vendor.deviceintel")
- *     .debugLogging(BuildConfig.DEBUG)
- *     .build()
- * A11yGuard.init(this, cfg)
- * A11yGuard.enableAutoProtection(this)          // wraps every Activity window automatically
- * A11yGuard.setIntegrityProvider { myPlayIntegrityVerdict() }  // optional
- *
- * // 2) On a sensitive screen, after setContentView():
- * A11yGuard.markSensitive(usernameField, passwordField, confirmButton)
- *
- * // 3) At the decision point (e.g. confirm-transfer click handler):
- * when (A11yGuard.evaluate(SensitiveAction.TRANSFER).decision) {
- *     RiskDecision.ALLOW   -> submitTransfer()
- *     RiskDecision.STEP_UP -> requireStepUpAuth()      // re-auth / out-of-band confirm
- *     RiskDecision.BLOCK   -> denyAndReport()
- * }
- * ```
- *
- * Thread-safety: all methods are safe to call from the main thread; [evaluate] is cheap and
- * synchronous. The SDK holds only the application context and bounded, self-expiring evidence.
- */
 object A11yGuard {
 
     @Volatile private var appContext: Context? = null

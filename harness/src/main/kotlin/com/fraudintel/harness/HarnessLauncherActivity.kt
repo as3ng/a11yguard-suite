@@ -17,17 +17,6 @@ import com.fraudintel.a11yguard.RiskDecision
 import com.fraudintel.a11yguard.RiskVerdict
 import com.fraudintel.a11yguard.SensitiveAction
 
-/**
- * Self-contained, guarded sample screen that doubles as the demo "victim" for the harness.
- *
- * Manual confirm tap        -> ALLOW   (genuine human touch in this window)
- * "Automate (machine 80ms)" -> BLOCK   (uncorrelated SET_TEXT + machine pacing + no human input)
- * "Automate (human 1500ms)" -> ALLOW   (human-plausible pacing, behavioral signals damped)
- *
- * NOTE: applyAccessibilityDataSensitive is intentionally false here so the *behavioral engine* is
- * exercised and visible on Android 14+. In production, leave it ON - on 14+ it also structurally
- * blocks the non-tool service from ever filling/clicking these views.
- */
 class HarnessLauncherActivity : AppCompatActivity() {
 
     private lateinit var verdict: TextView
@@ -37,7 +26,7 @@ class HarnessLauncherActivity : AppCompatActivity() {
 
         val cfg = A11yGuardConfig.Builder()
             .debugLogging(true)
-            .applyAccessibilityDataSensitive(false) // see note above; demo wants the engine visible
+            .applyAccessibilityDataSensitive(false)
             .build()
         A11yGuard.init(application, cfg)
         A11yGuard.protect(this)

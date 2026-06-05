@@ -6,12 +6,6 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.Window
 
-/**
- * Window-callback hook that classifies every touch delivered to a protected window and records
- * it in [RuntimeState]. Accessibility-injected gestures DO pass through here (they traverse normal
- * dispatch), so this is where dispatchGesture-style automation gets caught - while IME typing,
- * which never reaches this Activity's window, is correctly ignored.
- */
 internal class InputAuthenticityMonitor(
     wrapped: Window.Callback,
     private val appContext: Context,
@@ -38,10 +32,7 @@ internal class InputAuthenticityMonitor(
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         runCatching {
-            // Focus lost while an activity is still RESUMED, with no recent human input, suggests a
-            // focusable overlay drew over us (concealment) or a HOME/RECENTS global action fired.
-            // NOT_FOCUSABLE/NOT_TOUCHABLE overlays stay invisible here - those are stopped by
-            // setHideOverlayWindows() in StructuralHardening, not detected.
+
             if (!hasFocus && RuntimeState.isAnyResumed()) {
                 val now = SystemClock.uptimeMillis()
                 if (now - RuntimeState.lastHumanInputAtMs() > 600) RuntimeState.recordConcealment(now)

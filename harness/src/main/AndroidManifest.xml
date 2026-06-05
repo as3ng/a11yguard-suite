@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Used only to demonstrate overlay-driven flows during testing; optional. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!-- See launchable apps so the Targeted Console can launch the client's app by package. -->
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
@@ -31,9 +29,6 @@
             android:exported="false"
             android:label="A11y Targeted Console" />
 
-        <!-- Non-tool accessibility service on purpose: we are emulating the
-             permission posture of an abusive app to test detection + the
-             accessibilityDataSensitive structural defense. -->
         <service
             android:name=".HarnessAccessibilityService"
             android:exported="false"
@@ -47,7 +42,6 @@
                 android:resource="@xml/harness_accessibility_config" />
         </service>
 
-        <!-- Drive scenarios from adb via the RUN broadcast action; see HarnessCommandReceiver for the extras. -->
         <receiver
             android:name=".HarnessCommandReceiver"
             android:exported="true" />
